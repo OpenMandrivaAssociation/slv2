@@ -93,9 +93,13 @@ install -m0755 utils/ladspa2lv2 %{buildroot}%{_bindir}/
 install -d %{buildroot}%{_libdir}/lv2
 install -m0644 slv2.ttl %{buildroot}%{_libdir}/lv2/
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 rm -rf %{buildroot}
