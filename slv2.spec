@@ -1,5 +1,3 @@
-%define	snap r1162
-
 %define	major 9
 %define libname	%mklibname %{name} _%{major}
 %define develname %mklibname -d %{name}
@@ -7,16 +5,11 @@
 Summary:	A library for simple use of LV2 plugins
 Name:		slv2
 Version:	0.6.0
-Release:	%mkrel 0.%{snap}.1
+Release:	%mkrel 1
 Group:		System/Libraries
-License:	GPL
+License:	GPLv2+
 URL:		http://wiki.drobilla.net/SLV2
-Source0:	%{name}-%{version}-%{snap}.tar.gz
-Source1:	ac_python_devel.m4
-Source2:	lv2_uri_map.h
-Source3:	lv2_event.h
-Source4:	lv2_event_helpers.h
-BuildRequires:	autoconf
+Source0:	http://download.drobilla.net/%{name}-%{version}.tar.gz
 BuildRequires:	doxygen
 BuildRequires:	libjack-devel
 BuildRequires:	liblrdf-devel
@@ -52,6 +45,7 @@ Summary:	Development files (headers) for SLV2
 Group:		Development/C
 Requires:	%{libname} = %{version}
 Provides:	%{name}-devel = %{version}
+Requires:	lv2core-devel
 
 %description -n	%{develname}
 Files required for compiling programs which use SLV2, and developer
@@ -59,29 +53,13 @@ documentation.
 
 %prep
 
-%setup -q -n %{name}
-
-rm -rf m4
-mkdir -p m4
-cp %{SOURCE1} m4/
-
-rm -f hosts/lv2_uri_map.h
-rm -f hosts/lv2_event.h
-rm -f hosts/lv2_event_helpers.h
-
-cp %{SOURCE2} hosts/
-cp %{SOURCE3} hosts/
-cp %{SOURCE4} hosts/
-
+%setup -q -n %{name}-%version
 
 %build
-sh ./autogen.sh
-
 %configure2_5x \
     --disable-bindings \
     --enable-jack
-
-make
+%make
 
 %install
 rm -rf %{buildroot}
@@ -91,7 +69,7 @@ rm -rf %{buildroot}
 install -m0755 utils/ladspa2lv2 %{buildroot}%{_bindir}/
 
 install -d %{buildroot}%{_libdir}/lv2
-install -m0644 slv2.ttl %{buildroot}%{_libdir}/lv2/
+#install -m0644 slv2.ttl %{buildroot}%{_libdir}/lv2/
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
@@ -112,12 +90,12 @@ rm -rf %{buildroot}
 %{_bindir}/lv2_jack_host
 %{_bindir}/lv2_list
 %{_bindir}/lv2_simple_jack_host
+%dir %{_libdir}/lv2/
 
 %files -n %{libname}
 %defattr(-,root,root)
-%doc AUTHORS COPYING ChangeLog README
-%{_libdir}/*.so.*
-%{_libdir}/lv2/slv2.ttl
+%doc AUTHORS README
+%{_libdir}/libslv2.so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root)
