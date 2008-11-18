@@ -4,21 +4,24 @@
 
 Summary:	A library for simple use of LV2 plugins
 Name:		slv2
-Version:	0.6.0
+Version:	0.6.1
 Release:	%mkrel 1
 Group:		System/Libraries
 License:	GPLv2+
 URL:		http://wiki.drobilla.net/SLV2
-Source0:	http://download.drobilla.net/%{name}-%{version}.tar.gz
+Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
+Patch0:		slv2-0.6.1-ladspa2lv2_fix.diff
 BuildRequires:	doxygen
 BuildRequires:	libjack-devel
 BuildRequires:	liblrdf-devel
 BuildRequires:	libtool
-BuildRequires:	lv2core-devel
+BuildRequires:	lv2core-devel >= 3.0
 BuildRequires:	pkgconfig
 BuildRequires:	raptor-devel
 BuildRequires:	rasqal-devel
 BuildRequires:	redland-devel >= 1.0.6
+BuildRequires:	libjack-devel >= 0.107.0
+BuildRequires:	python
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -45,7 +48,7 @@ Summary:	Development files (headers) for SLV2
 Group:		Development/C
 Requires:	%{libname} = %{version}
 Provides:	%{name}-devel = %{version}
-Requires:	lv2core-devel
+Requires:	lv2core-devel >= 3.0
 
 %description -n	%{develname}
 Files required for compiling programs which use SLV2, and developer
@@ -54,22 +57,35 @@ documentation.
 %prep
 
 %setup -q -n %{name}-%version
+%patch0 -p0
+
+# antiborker
+perl -pi -e "s|/sbin/ldconfig|/bin/true|g" *.py
+
+# lib64 fix
+perl -pi -e "s|/lib\b|/%{_lib}|g" *.py
 
 %build
-%configure2_5x \
-    --disable-bindings \
-    --enable-jack
-%make
+export CFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags}"
+
+python ./waf configure \
+    --prefix=%{_prefix} \
+    --libdir=%{_libdir}/ \
+    --mandir=%{_mandir} \
+    --build-docs
+
+python ./waf build --verbose
 
 %install
 rm -rf %{buildroot}
 
-%makeinstall_std
-
-install -m0755 utils/ladspa2lv2 %{buildroot}%{_bindir}/
+DESTDIR=%{buildroot} python ./waf install --verbose
 
 install -d %{buildroot}%{_libdir}/lv2
 #install -m0644 slv2.ttl %{buildroot}%{_libdir}/lv2/
+
+install -m0644 build/default/doc/man/man3/*.3 %{buildroot}%{_mandir}/man3/
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
@@ -95,15 +111,12 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc AUTHORS README
-%{_libdir}/libslv2.so.%{major}*
+%attr(0755,root,root) %{_libdir}/libslv2.so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root)
-%doc doc/html/*
+%doc build/default/doc/html/*
 %{_includedir}/slv2/*.h
-%{_libdir}/*.so
-%{_libdir}/*.a
-%{_libdir}/*.la
+%attr(0755,root,root) %{_libdir}/*.so
 %{_libdir}/pkgconfig/slv2.pc
 %{_mandir}/man3/*
-
