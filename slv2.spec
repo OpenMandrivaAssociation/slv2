@@ -5,7 +5,7 @@
 Summary:    A library for simple use of LV2 plugins
 Name:       slv2
 Version:    0.6.6
-Release:    %mkrel 2
+Release:    %mkrel 3
 Group:      System/Libraries
 License:    GPLv2+
 URL:        http://wiki.drobilla.net/SLV2
@@ -83,9 +83,6 @@ rm -rf %{buildroot}
 DESTDIR=%{buildroot} python ./waf install --verbose
 
 install -d %{buildroot}%{_libdir}/lv2
-#install -m0644 slv2.ttl %{buildroot}%{_libdir}/lv2/
-
-install -m0644 build/default/doc/man/man3/*.3 %{buildroot}%{_mandir}/man3/
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
@@ -107,7 +104,7 @@ rm -rf %{buildroot}
 %{_bindir}/lv2_list
 %{_bindir}/lv2_simple_jack_host
 %dir %{_libdir}/lv2/
-%{_mandir}/man1/*.1.lzma
+%{_mandir}/man1/*
 
 %files -n %{libname}
 %defattr(-,root,root)
