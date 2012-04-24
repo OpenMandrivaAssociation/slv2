@@ -5,22 +5,21 @@
 Summary:    A library for simple use of LV2 plugins
 Name:       slv2
 Version:    0.6.6
-Release:    %mkrel 5
+Release:    6
 Group:      System/Libraries
 License:    GPLv2+
 URL:        http://wiki.drobilla.net/SLV2
 Source0:    http://download.drobilla.net/%{name}-%{version}.tar.bz2
 Patch0:        slv2-0.6.6-ladspa2lv2_fix.diff
 BuildRequires:  doxygen
-BuildRequires:  libjack-devel
+BuildRequires:  jackit-devel
 BuildRequires:  liblrdf-devel
 BuildRequires:  libtool
-BuildRequires:  lv2core-devel >= 3.0
+BuildRequires:  lv2-devel
 BuildRequires:  pkgconfig
 BuildRequires:  raptor-devel
 BuildRequires:  rasqal-devel
 BuildRequires:  redland-devel >= 1.0.6
-BuildRequires:  libjack-devel >= 0.107.0
 BuildRequires:  python
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -48,7 +47,7 @@ Summary:    Development files (headers) for SLV2
 Group:      Development/C
 Requires:   %{libname} = %{version}
 Provides:   %{name}-devel = %{version}
-Requires:   lv2core-devel >= 3.0
+Requires:   lv2-devel
 
 %description -n %{develname}
 Files required for compiling programs which use SLV2, and developer
@@ -82,16 +81,6 @@ rm -rf %{buildroot}
 
 DESTDIR=%{buildroot} python ./waf install --verbose
 
-install -d %{buildroot}%{_libdir}/lv2
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %clean
 rm -rf %{buildroot}
 
@@ -103,7 +92,6 @@ rm -rf %{buildroot}
 %{_bindir}/lv2_jack_host
 %{_bindir}/lv2_list
 %{_bindir}/lv2_simple_jack_host
-%dir %{_libdir}/lv2/
 %{_mandir}/man1/*
 
 %files -n %{libname}
