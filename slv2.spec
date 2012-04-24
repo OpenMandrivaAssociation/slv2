@@ -11,6 +11,7 @@ License:    GPLv2+
 URL:        http://wiki.drobilla.net/SLV2
 Source0:    http://download.drobilla.net/%{name}-%{version}.tar.bz2
 Patch0:        slv2-0.6.6-ladspa2lv2_fix.diff
+Patch1:        slv2-0.6.6-gcc46linking.diff
 BuildRequires:  doxygen
 BuildRequires:  jackit-devel
 BuildRequires:  liblrdf-devel
@@ -56,6 +57,7 @@ documentation.
 
 %setup -q -n %{name}-%version
 %patch0 -p0
+%patch1 -p0
 
 # antiborker
 perl -pi -e "s|/sbin/ldconfig|/bin/true|g" *.py
@@ -75,10 +77,12 @@ python ./waf configure \
 
 python ./waf build --verbose
 
+
 %install
 rm -rf %{buildroot}
 
 DESTDIR=%{buildroot} python ./waf install --verbose
+strip %{buildroot}/%{_libdir}/libslv2.so.%{major}*
 
 %clean
 rm -rf %{buildroot}
