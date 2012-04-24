@@ -47,7 +47,6 @@ Summary:    Development files (headers) for SLV2
 Group:      Development/C
 Requires:   %{libname} = %{version}
 Provides:   %{name}-devel = %{version}
-Requires:   pkgconfig(lv2)
 
 %description -n %{develname}
 Files required for compiling programs which use SLV2, and developer
