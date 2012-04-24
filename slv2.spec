@@ -15,7 +15,7 @@ BuildRequires:  doxygen
 BuildRequires:  jackit-devel
 BuildRequires:  liblrdf-devel
 BuildRequires:  libtool
-BuildRequires:  lv2-devel
+BuildRequires:  pkgconfig(lv2)
 BuildRequires:  pkgconfig
 BuildRequires:  raptor-devel
 BuildRequires:  rasqal-devel
@@ -47,7 +47,7 @@ Summary:    Development files (headers) for SLV2
 Group:      Development/C
 Requires:   %{libname} = %{version}
 Provides:   %{name}-devel = %{version}
-Requires:   lv2-devel
+Requires:   pkgconfig(lv2)
 
 %description -n %{develname}
 Files required for compiling programs which use SLV2, and developer
