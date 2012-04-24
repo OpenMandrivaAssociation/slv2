@@ -15,8 +15,8 @@ BuildRequires:  doxygen
 BuildRequires:  jackit-devel
 BuildRequires:  liblrdf-devel
 BuildRequires:  libtool
-BuildRequires:  pkgconfig(lv2)
 BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(lv2)
 BuildRequires:  raptor-devel
 BuildRequires:  rasqal-devel
 BuildRequires:  redland-devel >= 1.0.6
