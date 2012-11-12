@@ -1,0 +1,10 @@
+--- wscript.orig	2012-04-25 00:02:00.220995523 +0200
++++ wscript	2012-04-25 00:03:24.384494367 +0200
+@@ -118,6 +118,7 @@
+ 		obj = bld.new_task_gen('cc', 'program')
+ 		obj.source       = i + '.c'
+ 		obj.includes     = ['.', './src']
++		obj.libs         = ['m', 'dl']
+ 		obj.uselib_local = 'libslv2'
+ 		obj.target       = i
+ 		obj.install_path = '${BINDIR}'

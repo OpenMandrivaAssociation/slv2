@@ -1,0 +1,10 @@
+--- wscript	2009-05-26 05:44:51.000000000 +0200
++++ wscript.emuse	2010-04-22 19:12:23.203306322 +0200
+@@ -112,6 +112,7 @@
+ 	utils = '''
+ 		utils/lv2_inspect
+ 		utils/lv2_list
++		utils/ladspa2lv2
+ 	'''
+ 	for i in utils.split():
+ 		obj = bld.new_task_gen('cc', 'program')
