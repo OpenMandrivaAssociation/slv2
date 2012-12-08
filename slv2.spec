@@ -5,7 +5,7 @@
 Summary:    A library for simple use of LV2 plugins
 Name:       slv2
 Version:    0.6.6
-Release:    6
+Release:    7
 Group:      System/Libraries
 License:    GPLv2+
 URL:        http://wiki.drobilla.net/SLV2
@@ -17,7 +17,7 @@ BuildRequires:  jackit-devel
 BuildRequires:  liblrdf-devel
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
-BuildRequires:  pkgconfig(lv2)
+BuildRequires:  pkgconfig(lv2core)
 BuildRequires:  raptor-devel
 BuildRequires:  rasqal-devel
 BuildRequires:  redland-devel >= 1.0.6
@@ -109,3 +109,61 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_libdir}/*.so
 %{_libdir}/pkgconfig/slv2.pc
 %{_mandir}/man3/*
+
+
+%changelog
+* Wed Apr 25 2012 Frank Kober <emuse@mandriva.org> 0.6.6-6
++ Revision: 793250
+- added gcc46 linking wscript patch and strip library
+- rebuild with new lv2 specification 1.0.0
+
+* Fri May 06 2011 Oden Eriksson <oeriksson@mandriva.com> 0.6.6-5
++ Revision: 669989
+- mass rebuild
+
+* Sun Feb 13 2011 Frank Kober <emuse@mandriva.org> 0.6.6-4
++ Revision: 637435
+- rebuild for fixed redland
+
+* Sat Dec 04 2010 Frank Kober <emuse@mandriva.org> 0.6.6-3mdv2011.0
++ Revision: 609142
+- fix manpage suffix
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - rebuild
+
+* Thu Apr 22 2010 Frank Kober <emuse@mandriva.org> 0.6.6-1mdv2010.1
++ Revision: 537981
+- move to version 0.6.6, rediff patch, include manpages
+
+* Sun Feb 28 2010 Ahmad Samir <ahmadsamir@mandriva.org> 0.6.1-3mdv2010.1
++ Revision: 512806
+- rebuild for new rasqal
+
+* Thu Sep 03 2009 Christophe Fergeau <cfergeau@mandriva.com> 0.6.1-2mdv2010.0
++ Revision: 427196
+- rebuild
+
+* Tue Nov 18 2008 Oden Eriksson <oeriksson@mandriva.com> 0.6.1-1mdv2009.1
++ Revision: 304225
+- 0.6.1
+
+* Sat Oct 25 2008 Götz Waschk <waschk@mandriva.org> 0.6.0-1mdv2009.1
++ Revision: 297135
+- new version
+- drop extra sources
+- fix devel deps
+- fix file list
+- update license
+
+* Mon Jun 09 2008 Pixel <pixel@mandriva.com> 0.6.0-0.r1162.1mdv2009.0
++ Revision: 217195
+- do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Sun Mar 09 2008 Oden Eriksson <oeriksson@mandriva.com> 0.6.0-0.r1162.1mdv2008.1
++ Revision: 182965
+- import slv2
+
+
+* Sun Mar 09 2008 Oden Eriksson <oeriksson@mandriva.com> 0.6.0-0.r1162.1mdv2008.1
+- initial Mandriva release
