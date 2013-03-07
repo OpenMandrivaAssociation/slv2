@@ -1,5 +1,13 @@
 --- wscript.orig	2012-04-25 00:02:00.220995523 +0200
 +++ wscript	2012-04-25 00:03:24.384494367 +0200
+@@ -92,6 +92,7 @@
+ 	obj.export_incdirs = ['.']
+ 	obj.source       = lib_source
+ 	obj.includes     = ['.', './src']
++	obj.libs         = ['m', 'dl', 'raptor']
+ 	obj.name         = 'libslv2'
+ 	obj.target       = 'slv2'
+ 	obj.vnum         = SLV2_LIB_VERSION
 @@ -118,6 +118,7 @@
  		obj = bld.new_task_gen('cc', 'program')
  		obj.source       = i + '.c'
