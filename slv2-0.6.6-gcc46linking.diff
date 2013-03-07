@@ -4,7 +4,7 @@
  		obj = bld.new_task_gen('cc', 'program')
  		obj.source       = i + '.c'
  		obj.includes     = ['.', './src']
-+		obj.libs         = ['m', 'dl']
++		obj.libs         = ['m', 'dl', 'raptor']
  		obj.uselib_local = 'libslv2'
  		obj.target       = i
  		obj.install_path = '${BINDIR}'
