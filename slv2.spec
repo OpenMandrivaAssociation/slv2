@@ -5,7 +5,7 @@
 Summary:    A library for simple use of LV2 plugins
 Name:       slv2
 Version:    0.6.6
-Release:    10
+Release:    11
 Group:      System/Libraries
 License:    GPLv2+
 URL:        http://wiki.drobilla.net/SLV2
