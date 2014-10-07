@@ -1,11 +1,11 @@
 %define major 9
-%define libname %mklibname %{name} _%{major}
+%define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
 
 Summary:    A library for simple use of LV2 plugins
 Name:       slv2
 Version:    0.6.6
-Release:    14
+Release:    15
 Group:      System/Libraries
 License:    GPLv2+
 URL:        http://wiki.drobilla.net/SLV2
