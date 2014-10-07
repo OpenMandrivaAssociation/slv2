@@ -5,7 +5,7 @@
 Summary:    A library for simple use of LV2 plugins
 Name:       slv2
 Version:    0.6.6
-Release:    13
+Release:    14
 Group:      System/Libraries
 License:    GPLv2+
 URL:        http://wiki.drobilla.net/SLV2
@@ -21,7 +21,7 @@ BuildRequires:  pkgconfig(lv2core)
 BuildRequires:  raptor-devel
 BuildRequires:  rasqal-devel
 BuildRequires:  redland-devel >= 1.0.6
-BuildRequires:  python
+BuildRequires:  python2
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -69,19 +69,19 @@ perl -pi -e "s|/lib\b|/%{_lib}|g" *.py
 export CFLAGS="%{optflags}"
 export CXXFLAGS="%{optflags}"
 
-python ./waf configure \
+%{__python2} ./waf configure \
     --prefix=%{_prefix} \
     --libdir=%{_libdir}/ \
     --mandir=%{_mandir} \
     --build-docs
 
-python ./waf build --verbose
+%{__python2} ./waf build --verbose
 
 
 %install
 rm -rf %{buildroot}
 
-DESTDIR=%{buildroot} python ./waf install --verbose
+DESTDIR=%{buildroot} %{__python2} ./waf install --verbose
 strip %{buildroot}/%{_libdir}/libslv2.so.%{major}*
 
 %clean
