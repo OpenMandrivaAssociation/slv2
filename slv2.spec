@@ -1,6 +1,7 @@
 %define major 9
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
+%define debug_package %{nil}
 
 Summary:    A library for simple use of LV2 plugins
 Name:       slv2
