@@ -9,7 +9,7 @@ Version:    0.6.6
 Release:    18
 Group:      System/Libraries
 License:    GPLv2+
-URL:        http://wiki.drobilla.net/SLV2
+URL:        https://wiki.drobilla.net/SLV2
 Source0:    http://download.drobilla.net/%{name}-%{version}.tar.bz2
 Patch0:        slv2-0.6.6-ladspa2lv2_fix.diff
 Patch1:        slv2-0.6.6-gcc46linking.diff
